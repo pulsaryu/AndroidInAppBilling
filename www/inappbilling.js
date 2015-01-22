@@ -16,11 +16,11 @@ InAppBilling.prototype.init = function (success, fail, options, skus) {
 	this.options = {
 		showLog: options.showLog !== false
 	};
-	
+
 	if (this.options.showLog) {
 		log('setup ok');
 	}
-	
+
 	var hasSKUs = false;
 	//Optional Load SKUs to Inventory.
 	if(typeof skus !== "undefined"){
@@ -42,7 +42,7 @@ InAppBilling.prototype.init = function (success, fail, options, skus) {
 			hasSKUs = true;
     	}
 	}
-	
+
 	if(hasSKUs){
 		return cordova.exec(success, fail, "InAppBillingPlugin", "init", [skus]);
     }else {
@@ -56,11 +56,11 @@ InAppBilling.prototype.getPurchases = function (success, fail) {
 	}
 	return cordova.exec(success, fail, "InAppBillingPlugin", "getPurchases", ["null"]);
 };
-InAppBilling.prototype.buy = function (success, fail, productId) {
+InAppBilling.prototype.buy = function (success, fail, productId, payload) {
 	if (this.options.showLog) {
 		log('buy called!');
 	}
-	return cordova.exec(success, fail, "InAppBillingPlugin", "buy", [productId]);
+	return cordova.exec(success, fail, "InAppBillingPlugin", "buy", [productId, payload]);
 };
 InAppBilling.prototype.subscribe = function (success, fail, productId) {
 	if (this.options.showLog) {
@@ -84,7 +84,7 @@ InAppBilling.prototype.getProductDetails = function (success, fail, skus) {
 	if (this.options.showLog) {
 		log('getProductDetails called!');
 	}
-	
+
 	if (typeof skus === "string") {
         skus = [skus];
     }

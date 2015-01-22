@@ -38,7 +38,7 @@ or
 
 ### Manually
 
-The manual steps are not working on Phonegap 3.1+. Theses steps are not maintained anymore. Check the [issue #32](_https://github.com/poiuytrez/AndroidInAppBilling/issues/32) for more info. 
+The manual steps are not working on Phonegap 3.1+. Theses steps are not maintained anymore. Check the [issue #32](_https://github.com/poiuytrez/AndroidInAppBilling/issues/32) for more info.
 
 * Add in your `src` folder the `src/android/com` folder  
 It contains:
@@ -50,7 +50,7 @@ It contains:
 * In res/xml/config.xml, add  
 
 ```xml  
-<feature name="InAppBillingPlugin">   
+<feature name="InAppBillingPlugin">
       <param name="android-package" value="com.smartmobilesoftware.inappbilling.InAppBillingPlugin"/>  
 </feature>  
 ```
@@ -96,7 +96,7 @@ It contains:
 Usage
 -------
 #### Initialization
-Initialize the billing plugin. The plugin must be inialized before calling any other methods. 
+Initialize the billing plugin. The plugin must be inialized before calling any other methods.
 
     inappbilling.init(success, error, options)
 parameters
@@ -122,7 +122,7 @@ The list of owned products are retrieved from the local database.
 
 	inappbilling.getPurchases(success, fail)
 parameters
-* success : The success callback. It provides an array of json object representing the owned products as a parameter. Example: 
+* success : The success callback. It provides an array of json object representing the owned products as a parameter. Example:
 
  [{"purchaseToken":"tokenabc","developerPayload":"mypayload1",
    "packageName":"com.example.MyPackage","purchaseState":0,"orderId":"12345.6789",
@@ -136,7 +136,7 @@ parameters
 #### Purchase
 Purchase an item. You cannot buy an item that you already own.
 
-    inappbilling.buy(success, fail, productId)
+    inappbilling.buy(success, fail, productId, payload)
 parameters
 * success : The success callback. It provides a json object representing the purchased item as first parameter. Example :
 
@@ -152,6 +152,7 @@ parameters
 
 * error : The error callback.
 * productId : The in app billing product id (example "example_subscription")
+* payload : for security, generate your payload here for verification.
 
 #### Subscribe
 Subscribe to an item
@@ -191,7 +192,7 @@ Load the available product(s) to inventory. Not needed if you use the init(succe
 #### Get Available Product(s)
 The list of the available product(s) in inventory.
 
-		inappbilling.getAvailableProducts(success, fail) 
+		inappbilling.getAvailableProducts(success, fail)
 * success : The success callback. It provides a json array of the list of owned products as a parameter. Example :  
 {index:
 {
@@ -211,20 +212,20 @@ Quick example
 ```javascript
 inappbilling.init(successInit,errorCallback, {showLog:true})
 
-function successInit(result) {    
-	// display the extracted text   
-	alert(result); 
+function successInit(result) {
+	// display the extracted text
+	alert(result);
 	// make the purchase
 	inappbilling.buy(successPurchase, errorCallback,"gas");
-	
-}    
+
+}
 function errorCallback(error) {
-   alert(error); 
-} 
+   alert(error);
+}
 
 function successPurchase(productId) {
    alert("Your item has been purchased!");
-} 
+}
 ```
 
 Full example
@@ -246,7 +247,7 @@ Full example
                 }
                 alert("SUCCESS: \r\n"+strResult );
             }
-			
+
 			function errorHandler (error) {
 			    alert("ERROR: \r\n"+error );
 			}
@@ -261,14 +262,14 @@ Full example
 			function buy(){
 				// make the purchase
 				inappbilling.buy(successHandler, errorHandler,"gas");
-				
+
 			}
-			
+
 			// Click on ownedProducts button
 			function ownedProducts(){
 				// Initialize the billing plugin
 				inappbilling.getPurchases(successHandler, errorHandler);
-				
+
 			}
 
             // Click on Consume purchase button
@@ -283,23 +284,23 @@ Full example
                 inappbilling.subscribe(successHandler, errorHandler,"infinite_gas");
 
             }
-            
+
 			// Click on Query Details button
 			function getDetails(){
 				// Query the store for the product details
 				inappbilling.getProductDetails(successHandler, errorHandler, ["gas","infinite_gas"]);
-				
+
 			}
-			
+
 			// Click on Get Available Products button
 			function getAvailable(){
 				// Get the products available for purchase.
 				inappbilling.getAvailableProducts(successHandler, errorHandler);
-				
-			}						
-			
+
+			}
+
         </script>
-		
+
 	</head>
 	<body>
 		<h1>Hello World</h1>
@@ -319,7 +320,7 @@ Common issues
 If you have an issue, make sure that you can answer to theses questions:  
 Did you create your item in the Developer Console?  
 Is the id for your item the same in the Developer Console and in your app?  
-Is your item active? 
+Is your item active?
 Have you uploaded and published your apk in the alpha or beta channels?  You can no longer test in app purchases with an apk in draft mode.
 Have you waited at least a few hours since you activated your item and published your apk on the Developer Console?  
 Are you using a different Google account than your developer account to make the purchase?
@@ -328,7 +329,7 @@ Using the Google account, did you follow the link that appears in the channel wh
 Are you testing on a real device, rather than the emulator?  
 Are you using a signed apk?  
 Is the version code of your app the same as the one uploaded on the Developer Console?  
-  
+
 If any of these questions is answered with a "no", you probably need to fix that.  
 
 
